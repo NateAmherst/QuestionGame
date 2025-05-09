@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Game Runner</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Game Runner: <span id="runnerName"></span></h2>
+    
+    <h3>Select Imposters:</h3>
+    <div id="playerList" class="checkbox-list"></div>
+
+    <h3>Send Questions:</h3>
+    <textarea id="regularQuestion" placeholder="Question for players"></textarea>
+    <textarea id="imposterQuestion" placeholder="Question for imposters"></textarea>
+    <button onclick="sendQuestions()">Send</button>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="runner.js"></script>
+</body>
+</html>

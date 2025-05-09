@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Join Question Game</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Question Game</h1>
+    <input id="nameInput" placeholder="Enter your name" />
+    <div class="buttons">
+      <button onclick="selectRole('player')">Join as Player</button>
+      <button id="runnerBtn" onclick="selectRole('runner')">Join as Game Runner</button>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    const runnerBtn = document.getElementById('runnerBtn');
+
+    socket.on('playerList', (players) => {
+      const runnerExists = players.some(p => p.role === 'runner');
+      runnerBtn.disabled = runnerExists;
+    });
+
+    function selectRole(role) {
+      const name = document.getElementById('nameInput').value.trim();
+      if (!name) return alert('Enter a name');
+      sessionStorage.setItem('name', name);
+      sessionStorage.setItem('role', role);
+      socket.emit('join', { name, role });
+      window.location.href = role === 'runner' ? 'runner.html' : 'player.html';
+    }
+  </script>
+</body>
+</html>
